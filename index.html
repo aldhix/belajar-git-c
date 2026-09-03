@@ -1,16 +1,157 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belajar Git</title>
+    <title>Akademi Konoha — Menghitung Luas Segitiga</title>
+
+    <!-- Font dari CDN Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Yuji+Syuku&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Ikon dari CDN Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Belajar Git</h1>
-    <p>
-        Nama : Zein <br>
-        Kelas : XI RPL C
-    </p>
+
+    <!-- Kumpulan bentuk SVG yang dipakai berulang -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="ikon-shuriken" viewBox="0 0 100 100">
+            <path d="M50 3 L62 38 L97 50 L62 62 L50 97 L38 62 L3 50 L38 38 Z"
+                  fill="currentColor"/>
+            <circle cx="50" cy="50" r="8" fill="#14100d"/>
+        </symbol>
+        <symbol id="ikon-pusaran" viewBox="0 0 100 100">
+            <g fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="round">
+                <path d="M50 50
+                         a 5  5  0 0 1 10 0
+                         a 10 10 0 0 1 -20 0
+                         a 15 15 0 0 1 30 0
+                         a 20 20 0 0 1 -40 0
+                         a 25 25 0 0 1 50 0"/>
+                <path d="M75 50 L75 74 L58 74" stroke-width="7"/>
+            </g>
+        </symbol>
+    </svg>
+
+    <!-- Shuriken berputar di latar belakang -->
+    <div class="latar-shuriken" aria-hidden="true">
+        <svg class="shuriken-terbang" viewBox="0 0 100 100"><use href="#ikon-shuriken"></use></svg>
+        <svg class="shuriken-terbang" viewBox="0 0 100 100"><use href="#ikon-shuriken"></use></svg>
+        <svg class="shuriken-terbang" viewBox="0 0 100 100"><use href="#ikon-shuriken"></use></svg>
+        <svg class="shuriken-terbang" viewBox="0 0 100 100"><use href="#ikon-shuriken"></use></svg>
+    </div>
+
+    <main class="halaman">
+        <div class="batang"></div>
+
+        <div class="gulungan">
+
+            <!-- ===== Kepala gulungan ===== -->
+            <header class="kepala">
+                <svg class="lambang" viewBox="0 0 100 100" role="img" aria-label="Lambang pusaran Uzumaki">
+                    <use href="#ikon-pusaran"></use>
+                </svg>
+                <p class="kanji-besar">木ノ葉隠れの里</p>
+                <h1>Akademi Konoha</h1>
+                <p class="sub-judul">Gulungan Jurus Perhitungan — Divisi Matematika Shinobi</p>
+                <span class="pita-repo">
+                    <i class="fa-brands fa-git-alt"></i> Repositori: Belajar Git
+                </span>
+            </header>
+
+            <!-- ===== Kartu identitas ===== -->
+            <section class="kartu-ninja">
+                <div class="ikat-kepala">
+                    <svg viewBox="0 0 100 100" aria-hidden="true"><use href="#ikon-pusaran"></use></svg>
+                </div>
+                <div class="data-ninja">
+                    <div class="baris"><span class="label">Nama</span><span class="nilai">: Zein</span></div>
+                    <div class="baris"><span class="label">Kelas</span><span class="nilai">: XI RPL C</span></div>
+                    <div class="baris"><span class="label">Desa</span><span class="nilai">: Konohagakure</span></div>
+                    <span class="pangkat"><i class="fa-solid fa-star"></i> Pangkat: Genin Coder</span>
+                </div>
+            </section>
+
+            <!-- ===== Papan misi ===== -->
+            <section class="papan-misi">
+                <h2 class="judul-misi">
+                    <i class="fa-solid fa-scroll"></i>
+                    Menghitung Luas Segitiga
+                    <span class="rank-misi">MISI RANK-C</span>
+                </h2>
+
+                <p class="rumus-misi">
+                    <i class="fa-solid fa-book-open"></i>
+                    <strong>Jurus Dasar:</strong> Luas = ½ &times; alas &times; tinggi
+                </p>
+
+                <form id="form-jurus" novalidate>
+                    <div class="kolom-jurus">
+                        <label for="alas">
+                            <i class="fa-solid fa-ruler-horizontal"></i> Alas Segitiga
+                        </label>
+                        <input type="number" id="alas" name="alas" step="any" min="0"
+                               placeholder="Masukkan panjang alas..." autocomplete="off">
+                    </div>
+
+                    <div class="kolom-jurus">
+                        <label for="tinggi">
+                            <i class="fa-solid fa-ruler-vertical"></i> Tinggi Segitiga
+                        </label>
+                        <input type="number" id="tinggi" name="tinggi" step="any" min="0"
+                               placeholder="Masukkan tinggi..." autocomplete="off">
+                    </div>
+
+                    <!-- Pratinjau bentuk segitiga, digambar ulang oleh script.js -->
+                    <div class="panel-pratinjau">
+                        <svg id="pratinjau" viewBox="0 0 260 150" role="img"
+                             aria-label="Pratinjau bentuk segitiga">
+                            <polygon id="bidang-segitiga" points="50,125 210,125 130,45"></polygon>
+                            <line id="garis-tinggi" class="garis-tinggi" x1="130" y1="45" x2="130" y2="125"></line>
+                            <text id="teks-alas"   class="teks-ukur" x="130" y="142" text-anchor="middle">alas</text>
+                            <text id="teks-tinggi" class="teks-ukur" x="138" y="88">tinggi</text>
+                        </svg>
+                    </div>
+
+                    <div class="deret-tombol">
+                        <button type="submit" class="tombol-rasengan">
+                            <i class="fa-solid fa-fan"></i> Rasengan Hitung!
+                        </button>
+                        <button type="button" id="tombol-reset" class="tombol-kai">
+                            <i class="fa-solid fa-rotate-left"></i> Kai!
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Hasil perhitungan diisi oleh script.js -->
+                <div id="panel-hasil" class="panel-hasil" aria-live="polite"></div>
+            </section>
+
+            <!-- ===== Catatan misi ===== -->
+            <section class="catatan-misi">
+                <h3 class="judul-catatan">
+                    <i class="fa-solid fa-clipboard-list"></i> Catatan Misi Terakhir
+                </h3>
+                <ul id="daftar-catatan"></ul>
+                <p id="catatan-kosong" class="catatan-kosong">
+                    Belum ada misi yang diselesaikan. Ayo lancarkan jurus pertamamu!
+                </p>
+            </section>
+
+        </div>
+
+        <div class="batang"></div>
+
+        <footer class="kaki">
+            <p><span class="kanji-kaki">忍</span></p>
+            <p>&copy; 2026 Zein — XI RPL C &middot; Dibuat sambil belajar Git</p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
 </body>
 </html>
