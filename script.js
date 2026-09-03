@@ -179,16 +179,67 @@ function resetJurus() {
 }
 
 // ---------- Pasang event ----------
-form.addEventListener("submit", function (e) {
-    e.preventDefault();      // biar halaman tidak reload
-    hitungLuas();
-});
+// File ini juga dipakai profile.html yang tidak punya kalkulator,
+// jadi semua pemasangan event dibungkus pengecekan dulu.
+if (form) {
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();      // biar halaman tidak reload
+        hitungLuas();
+    });
 
-tombolReset.addEventListener("click", resetJurus);
+    tombolReset.addEventListener("click", resetJurus);
 
-// Pratinjau ikut berubah sambil mengetik
-inputAlas.addEventListener("input", gambarPratinjau);
-inputTinggi.addEventListener("input", gambarPratinjau);
+    // Pratinjau ikut berubah sambil mengetik
+    inputAlas.addEventListener("input", gambarPratinjau);
+    inputTinggi.addEventListener("input", gambarPratinjau);
 
-// Gambar pratinjau awal saat halaman dibuka
-gambarPratinjau();
+    // Gambar pratinjau awal saat halaman dibuka
+    gambarPratinjau();
+}
+
+/* ============================================================
+   HALAMAN PROFIL — animasi bar level chakra
+   ============================================================ */
+
+// Hitung angka persen naik pelan-pelan dari 0 sampai target
+function naikkanAngka(elemen, target, durasi) {
+    var mulai = null;
+
+    function langkah(waktu) {
+        if (mulai === null) { mulai = waktu; }
+
+        var maju = Math.min((waktu - mulai) / durasi, 1);
+        // pelan di akhir biar terasa halus
+        var halus = 1 - Math.pow(1 - maju, 3);
+
+        elemen.textContent = Math.round(target * halus) + "%";
+
+        if (maju < 1) { requestAnimationFrame(langkah); }
+    }
+
+    requestAnimationFrame(langkah);
+}
+
+function isiChakra() {
+    var semuaBar   = document.querySelectorAll(".isi-chakra");
+    var semuaNilai = document.querySelectorAll(".nilai-jurus");
+
+    if (semuaBar.length === 0) { return; }   // bukan halaman profil
+
+    // Beri jeda sedikit supaya transisi CSS-nya kelihatan jalan
+    setTimeout(function () {
+        for (var i = 0; i < semuaBar.length; i++) {
+            var level = parseFloat(semuaBar[i].getAttribute("data-level"));
+            if (!isFinite(level)) { level = 0; }
+            semuaBar[i].style.width = level + "%";
+        }
+
+        for (var j = 0; j < semuaNilai.length; j++) {
+            var nilai = parseFloat(semuaNilai[j].getAttribute("data-nilai"));
+            if (!isFinite(nilai)) { nilai = 0; }
+            naikkanAngka(semuaNilai[j], nilai, 1200);
+        }
+    }, 250);
+}
+
+isiChakra();
