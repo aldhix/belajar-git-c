@@ -5,4 +5,6 @@ Belajar Git dan GitHub dasar Besama XI PPLG C
 Penambahan fitur menghitung luas segi tiga.
 
 ## Profile Saya
-Menambahkan halaman profile saya.
+Menambahkan halaman profile saya. Profile pribadi dan contact sosmed.
+
+
